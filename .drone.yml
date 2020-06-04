@@ -14,3 +14,10 @@ steps:
   - npm install -g typescript
   - tsc 01_basic_types/main.ts
   - node 01_basic_types/main.js
+
+- name: variable_declarations
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 02_variable_declarations/main.ts
+  - node 02_variable_declarations/main.js
