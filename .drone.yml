@@ -7,3 +7,10 @@ steps:
   commands:
   - npm install -g typescript
   - tsc --version
+
+- name: basic_types
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 01_basic_types/main.ts
+  - node 01_basic_types/main.js
