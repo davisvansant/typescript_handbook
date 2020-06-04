@@ -1,4 +1,4 @@
-#### Typescript
+#### TypeScript
 
 [![Build Status](https://cloud.drone.io/api/badges/davisvansant/typescript_handbook/status.svg)](https://cloud.drone.io/davisvansant/typescript_handbook)
 
