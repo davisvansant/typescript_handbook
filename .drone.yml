@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+- name: hi
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc --version
