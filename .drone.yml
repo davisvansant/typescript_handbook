@@ -21,3 +21,10 @@ steps:
   - npm install -g typescript
   - tsc 02_variable_declarations/main.ts
   - node 02_variable_declarations/main.js
+
+- name: interfaces
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 03_interfaces/main.ts
+  - node 03_interfaces/main.js
