@@ -35,3 +35,10 @@ steps:
   - npm install -g typescript
   - tsc -t ES5 04_classes/*.ts
   - node 04_classes/main.js
+
+- name: functions
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 05_functions/main.ts
+  - node 05_functions/main.js
