@@ -42,3 +42,10 @@ steps:
   - npm install -g typescript
   - tsc 05_functions/main.ts
   - node 05_functions/main.js
+
+- name: generics
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 06_generics/main.ts
+  - node 06_generics/main.js
