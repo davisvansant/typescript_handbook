@@ -49,3 +49,10 @@ steps:
   - npm install -g typescript
   - tsc 06_generics/main.ts
   - node 06_generics/main.js
+
+- name: enums
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 07_enums/main.ts
+  - node 07_enums/main.js
