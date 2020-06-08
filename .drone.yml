@@ -56,3 +56,10 @@ steps:
   - npm install -g typescript
   - tsc 07_enums/main.ts
   - node 07_enums/main.js
+
+- name: type_inference
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 08_type_inference/main.ts
+  - node 08_type_inference/main.js
