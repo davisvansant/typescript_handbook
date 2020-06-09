@@ -33,7 +33,7 @@ steps:
   image: node:12.18.0-slim
   commands:
   - npm install -g typescript
-  - tsc -t ES5 04_classes/*.ts
+  - tsc -t ES5 04_classes/main.ts
   - node 04_classes/main.js
 
 - name: functions
@@ -70,3 +70,10 @@ steps:
   - npm install -g typescript
   - tsc 09_type_compatibility/main.ts
   - node 09_type_compatibility/main.js
+
+- name: advanced_types
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 10_advanced_types/main.ts
+  - node 10_advanced_types/main.js
