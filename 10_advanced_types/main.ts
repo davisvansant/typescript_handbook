@@ -231,3 +231,85 @@ let people: LinkedList<Person>;
 // let some_s = people.next.name;
 // let some_s = people.next.next.name;
 // let some_s = people.next.next.next.name;
+
+// interfaces vs type aliases
+
+type Alias = { num: number }
+interface Interface {
+  num: number;
+}
+
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+
+// string literal types
+
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+class UIElement {
+  animate(dx: number, dy: number, easing: Easing) {
+    if (easing === "ease-in") {
+      console.log("ease-in");
+    } else if (easing === "ease-out") {
+      console.log("ease-out");
+    } else if (easing === "ease-in-out") {
+      console.log("ease-in-out");
+    } else {
+      console.log("nope");
+    }
+  }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+// button.animate(0, 0, "uneasy");
+
+// numeric literal types
+
+// function rollDice(): 1 | 2 | 3 | 4 | 5 | 6 {
+//
+// }
+//
+// function numeric_foo(x: number) {
+//   if (x !== 1 || x !== 2) {
+//
+//   }
+// }
+
+// enum member types
+
+// discriminated unions
+
+interface SomeSquare {
+  kind: "square";
+  size: number;
+}
+
+interface SomeRectangle {
+  kind: "rectangle";
+  width: number;
+  height: number;
+}
+
+interface SomeCircle {
+  kind: "circle";
+  radius: number;
+}
+
+type SomeShape = SomeSquare | SomeRectangle | SomeCircle;
+
+function area(s: SomeShape) {
+  switch (s.kind) {
+    case "square": return s.size * s.size;
+    case "rectangle": return s.height * s.width;
+    case "circle": return Math.PI * s.radius ** 2;
+  }
+}
+
+let a_square: SomeShape = { kind: "square", size: 5 };
+let a_rectangle: SomeShape = { kind: "rectangle", width: 20, height: 50 };
+let a_circle: SomeShape = { kind: "circle", radius: 50 };
+console.log(area(a_square));
+console.log(area(a_rectangle));
+console.log(area(a_circle));
+
+// polymorphic 'this' types 
