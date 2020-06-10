@@ -312,4 +312,242 @@ console.log(area(a_square));
 console.log(area(a_rectangle));
 console.log(area(a_circle));
 
-// polymorphic 'this' types 
+// polymorphic 'this' types
+
+class BasicCalculator {
+  public constructor(protected value: number = 0) { }
+  public currentValue(): number {
+    return this.value;
+  }
+
+  public add(operand: number): this {
+    this.value += operand;
+    return this;
+  }
+
+  public multiply(operand: number): this {
+    this.value += operand;
+    return this;
+  }
+}
+
+let some_calculations = new BasicCalculator(2).multiply(5).add(1).currentValue();
+console.log(some_calculations)
+
+class ScientificCalculator extends BasicCalculator {
+  public constructor(value = 0) {
+    super(value);
+  }
+
+  public sin() {
+    this.value = Math.sin(this.value);
+    return this;
+  }
+}
+
+let doing_science = new ScientificCalculator(2).multiply(5).sin().add(1).currentValue();
+console.log(doing_science);
+
+// index types
+
+function pluck<T, K extends keyof T>(o: T, propertyNames: K[]): T[K][] {
+  return propertyNames.map(n => o[n]);
+}
+
+interface Car {
+  manufacturer: string;
+  model: string;
+  year: number;
+}
+
+let some_taxi: Car = {
+  manufacturer: 'Toyota',
+  model: 'Camery',
+  year: 2014,
+};
+
+let taxi_make_and_model: string[] = pluck(some_taxi, ['manufacturer', 'model']);
+let taxi_model_year = pluck(some_taxi, ['model', 'year']);
+
+console.log(taxi_make_and_model);
+console.log(taxi_model_year);
+
+// index types and index signatures
+
+interface Dictionary<T> {
+  [key: string]: T;
+}
+
+let some_index_keys: keyof Dictionary<number>;
+let some_index_value: Dictionary<number>['foo'];
+
+console.log(some_index_keys);
+console.log(some_index_value);
+
+// mapped types
+
+// interface SomePersonPartial {
+//   name?: string;
+//   age?: number;
+// }
+//
+// interface SomePersonReadonly {
+//   readonly name: string;
+//   readonly age: number;
+// }
+
+type SomeReadOnly<T> = {
+  readonly [P in keyof T]: T[P];
+}
+
+type SomePartial<T> = {
+  [P in keyof T]?: T[P];
+}
+
+type PersonPartial = SomePartial<Person>;
+type ReadonlyPerson = SomeReadOnly<Person>;
+
+type PartialWithNewMember<T> = {
+  [P in keyof T]?: T[P];
+} & { newMember: boolean }
+
+type SomeKeys = 'option1' | 'option2';
+type Flags = { [K in SomeKeys]: boolean };
+
+type moreFlags = {
+  option1: boolean;
+  option2: boolean
+}
+
+type Nullable<T> = { [P in keyof T]: T[P] | null }
+type SomeOtherPartial<T> = { [P in keyof T]?: T[P] }
+
+type Proxy<T> = {
+  get(): T;
+  set(value: T): void;
+}
+
+type Proxify<T> = {
+  [P in keyof T]: Proxy<T[P]>;
+}
+
+// function proxify<T>(o: T): Proxify<T> {
+//
+// }
+
+// inference from mapped types
+
+// function unproxify<T>(t: Proxify<T>): T {
+//   let result = {} as T;
+//   for (const k in t) {
+//     result[k] = t[k].get();
+//   }
+//   return result;
+// }
+//
+// let some_original_props = unproxify
+
+// conditional types
+
+// declare function f<T extends boolean>(x: T): T extends true ? string : number;
+//
+// let some_new_x = f(Math.random() < 0.5 );
+//
+// console.log(some_new_x);
+
+type TypeName<T> =
+  T extends string ? "string" :
+  T extends number ? "number" :
+  T extends boolean ? "boolean" :
+  T extends undefined ? "undefined" :
+  T extends Function ? "function" :
+  "object";
+
+type T0 = TypeName<string>;
+type T1 = TypeName<"a">;
+type T2 = TypeName<true>;
+type T3 = TypeName<() => void>;
+type T4 = TypeName<string[]>;
+
+interface FooFighter {
+  propA: boolean;
+  propB: boolean;
+}
+
+declare function some_other_f<T>(x: T): T extends FooFighter ? string : number;
+
+// function yet_another_foo<U>(x: U) {
+//   // let a = f(x);
+//   let b: string | number = a;
+// }
+
+// distributive contional types
+
+type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
+type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
+
+type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
+type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+interface Part {
+  id: number;
+  name: string;
+  subparts: Part[];
+  updatePart(newName: string): void;
+}
+
+type T40 = FunctionPropertyNames<Part>;
+type T41 = NonFunctionPropertyNames<Part>;
+type T42 = FunctionProperties<Part>;
+type T43 = NonFunctionProperties<Part>;
+
+// type inference in condtional types
+
+type Unpacked<T> =
+  T extends (infer U)[] ? U :
+  T extends (...args: any[]) => infer U ? U :
+  T extends Promise<infer U> ? U:
+  T;
+
+type T1000 = Unpacked<string>;
+type T1001 = Unpacked<string[]>;
+type T1002 = Unpacked<() => string>;
+type T1003 = Unpacked<Promise<string>>;
+type T1004 = Unpacked<Promise<string>[]>;
+type T1005 = Unpacked<Unpacked<Promise<string>[]>>;
+
+// prefered conditional types
+
+type T00 = Exclude<"a" | "b" | "c" | "d", "a" | "c" | "f">;
+type T01 = Extract<"a" | "b" | "c" | "d", "a" | "c" | "f">;
+
+type T02 = Exclude<string | number | (() => void), Function>;
+type T03 = Extract<string | number | (() => void), Function>;
+
+type T04 = NonNullable<string | number | undefined>;
+type T05 = NonNullable<(() => string) | string[] | null | undefined>;
+
+function f1(s: string) {
+  return { a:1, b: s };
+}
+
+class another_C {
+  x = 0;
+  y = 0;
+}
+
+type T10 = ReturnType<() => string>;
+type T11 = ReturnType<(s: string) => void>;
+type T12 = ReturnType<(<T>() => T)>;
+type T13 = ReturnType<(<T extends U, U extends number[]>() => T)>;
+type T14 = ReturnType<typeof f1>;
+type T15 = ReturnType<any>;
+type T16 = ReturnType<never>;
+// type T17 = ReturnType<string>;
+// type T18 = ReturnType<Function>;
+
+type T20 = InstanceType<typeof another_C>;
+type T21 = InstanceType<any>;
+type T22 = InstanceType<never>;
+// type T23 = InstanceType<string>;  
+// type T24 = InstanceType<Function>;
