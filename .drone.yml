@@ -77,3 +77,10 @@ steps:
   - npm install -g typescript
   - tsc 10_advanced_types/main.ts
   - node 10_advanced_types/main.js
+
+- name: symbols
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc --lib "ES2020","DOM" 11_symbols/main.ts
+  - node 11_symbols/main.js
