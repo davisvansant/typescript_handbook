@@ -91,3 +91,10 @@ steps:
   - npm install -g typescript
   - tsc --lib "ES2020","DOM" --downlevelIteration true 12_iterators_and_generators/main.ts
   - node 12_iterators_and_generators/main.js
+
+- name: modules
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 13_modules/main.ts
+  - node 13_modules/main.js
