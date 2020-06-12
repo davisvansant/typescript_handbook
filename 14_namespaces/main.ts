@@ -1,23 +1,6 @@
-namespace Validation {
-  export interface StringValidator {
-    isAcceptable(s: string): boolean;
-  }
-
-const lettersRegexp = /^[A-Za-z]+S/;
-const numbersRegexp = /^[0-9]+S/;
-
-export class LettersOnlyValidator implements StringValidator {
-    isAcceptable(s: string) {
-      return lettersRegexp.test(s);
-    }
-  }
-
-export class ZipCodeValidator implements StringValidator {
-    isAcceptable(s: string) {
-      return s.length === 5 && numbersRegexp.test(s);
-    }
-  }
-}
+/// <reference path="validation.ts" />
+/// <reference path="letters_only_validator.ts" />
+/// <reference path="zip_code_validator.ts" />
 
 let strings = [ "Hello", "98052", "101" ];
 let validators: { [s: string]: Validation.StringValidator; } = {};
