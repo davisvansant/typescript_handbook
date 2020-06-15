@@ -112,3 +112,8 @@ steps:
   - npm install -g typescript
   - tsc 15_namespaces_and_modules/main.ts
   - node 15_namespaces_and_modules/main.js
+
+- name: module_resolution
+  image: node:12.18.0-slim
+  commands:
+  - echo "Module Resolution"
