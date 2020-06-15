@@ -105,3 +105,10 @@ steps:
   - npm install -g typescript
   - tsc --outfile 14_namespaces/main.js 14_namespaces/main.ts
   - node 14_namespaces/main.js
+
+- name: namespaces_and_modules
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 15_namespaces_and_modules/main.ts
+  - node 15_namespaces_and_modules/main.js
