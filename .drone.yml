@@ -117,3 +117,10 @@ steps:
   image: node:12.18.0-slim
   commands:
   - echo "Module Resolution"
+
+- name: declaration_merging
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 17_declaration_merging/main.ts
+  - node 17_declaration_merging/main.js
