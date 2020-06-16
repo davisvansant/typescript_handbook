@@ -124,3 +124,11 @@ steps:
   - npm install -g typescript
   - tsc 17_declaration_merging/main.ts
   - node 17_declaration_merging/main.js
+
+- name: jsx
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - npm install -g --save react react-dom
+  - npm install -g --save-dev @types/react @types/react-dom
+  - tsc --jsx react 18_jsx/main.tsx
