@@ -146,3 +146,8 @@ steps:
   commands:
   - npm install -g typescript
   - tsc 20_mixins/main.ts
+
+- name: triple_slash_directives
+  image: node:12.18.0-slim
+  commands:
+  - echo "Triple Slash Directives"
