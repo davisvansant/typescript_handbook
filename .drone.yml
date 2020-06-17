@@ -140,3 +140,9 @@ steps:
   - npm install -g --save reflect-metadata
   - tsc --target ES5 --experimentalDecorators --lib es2015,DOM 19_decorators/main.ts
   - node 19_decorators/main.js
+
+- name: mixins
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc 20_mixins/main.ts
