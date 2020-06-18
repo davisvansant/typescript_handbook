@@ -151,3 +151,8 @@ steps:
   image: node:12.18.0-slim
   commands:
   - echo "Triple Slash Directives"
+
+- name: type_checking_javascript_files
+  image: node:12.18.0-slim
+  commands:
+  - echo "Type Checking Javascript Files"
