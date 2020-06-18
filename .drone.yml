@@ -156,3 +156,10 @@ steps:
   image: node:12.18.0-slim
   commands:
   - echo "Type Checking Javascript Files"
+
+- name: utility_types
+  image: node:12.18.0-slim
+  commands:
+  - npm install -g typescript
+  - tsc --strictFunctionTypes true 23_utility_types/main.ts
+  - node 23_utility_types/main.js
